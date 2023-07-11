@@ -1,16 +1,23 @@
 package u4d12.entities;
 
+import java.util.UUID;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "students") // Serve per definire un nome custom per la nostra tabella
+//@Table(name = "students", uniqueConstraints = {@UniqueConstraint(columnNames = {"firstName", "lastName"})}) // Serve per definire un nome custom per la nostra tabella
+@Table(name = "students")
 public class Student {
 	@Id // Serve per definire chi sarà la chiave primaria
-	private long id; 
+	@GeneratedValue // Obbligatorio usarlo se si vuol fare gestire gli id al db
+	private UUID id; // oppure long
+
 	private String firstName;
 	private String lastName;
+
 
 	public Student() {
 	}
@@ -20,7 +27,7 @@ public class Student {
 		this.lastName = lastName;
 	}
 
-	public long getId() {
+	public UUID getId() {
 		return id;
 	}
 
@@ -38,6 +45,11 @@ public class Student {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
 
 }
